@@ -24,128 +24,304 @@ function App() {
       });
   };
 
-  const Success = [
+const Success = [
     {
-      code: 200,
-      message: "OK",
-      description:
-        "Başarılı bir HTTP isteğini temsil eder. İstek başarılı bir şekilde işlendi ve istemciye uygun yanıt döndü.",
+        code: 200,
+        message: "OK",
+        description: "Başarılı bir HTTP isteğini temsil eder. İstek başarılı bir şekilde işlendi ve istemciye uygun yanıt döndü."
     },
     {
-      code: 201,
-      message: "Created",
-      description:
-        "İstek başarılı oldu ve sonucunda yeni bir kaynak oluşturuldu.",
+        code: 201,
+        message: "Created",
+        description: "İstek başarılı oldu ve sonucunda yeni bir kaynak oluşturuldu."
     },
-    { code: 202, message: "Accepted" },
-    { code: 203, message: "Non-Authoritative Information" },
-    {
-      code: 204,
-      message: "No Content",
-      description:
-        "Sunucu isteği başarılı bir şekilde yerine getirdi ancak herhangi bir içerik döndürmek zorunda değil.",
+    { 
+        code: 202,
+        message: "Accepted",
+        description: "İstek başarılı bir şekilde alındı ancak işlenmesi hala devam ediyor."
     },
-    { code: 205, message: "Reset Content" },
-    { code: 206, message: "Partial Content" },
-    { code: 207, message: "Multi-Status" },
-    { code: 208, message: "Already Reported" },
-    { code: 226, message: "IM Used" },
-  ];
+    { 
+        code: 203,
+        message: "Non-Authoritative Information",
+        description: "Sunucunun sunduğu yanıt, kaynağın kendisinden değil, başka bir yerden alınmış olabilir."
+    },
+    { 
+        code: 204,
+        message: "No Content",
+        description: "Sunucu isteği başarılı bir şekilde yerine getirdi ancak herhangi bir içerik döndürmek zorunda değil."
+    },
+    { 
+        code: 205,
+        message: "Reset Content",
+        description: "Sunucu, istemcinin mevcut belge görünümünü sıfırlaması gerektiğini belirtir."
+    },
+    { 
+        code: 206,
+        message: "Partial Content",
+        description: "Sunucu, istemcinin belirli bir kısmını istediği bir kaynağı başarıyla gönderir."
+    },
+    { 
+        code: 207,
+        message: "Multi-Status",
+        description: "Birden fazla kaynağın durumu veya işlemi hakkında bilgi içeren bir yanıt."
+    },
+    { 
+        code: 208,
+        message: "Already Reported",
+        description: "Sunucu, istemcinin daha önce rapor edilen bir durumu tekrarladığını belirtir."
+    },
+    { 
+        code: 226,
+        message: "IM Used",
+        description: "Sunucu, kısmi içeriği alırken Integritiyi Doğrula (IM) kullanarak başarıyla gönderdi."
+    }
+];
 
-  const Redirection = [
-    { code: 300, message: "Multiple Choices" },
-    { code: 301, message: "Moved Permanently" },
-    { code: 302, message: "Found" },
-    { code: 303, message: "See Other" },
-    {
+
+ const Redirection = [
+  { 
+      code: 300, 
+      message: "Multiple Choices",
+      description: "Sunucu, istemcinin isteğini yerine getirmek için birden fazla kaynak buldu ve bu kaynaklar arasından birini seçmesi gerektiğini belirtir."
+  },
+  { 
+      code: 301, 
+      message: "Moved Permanently",
+      description: "Sunucu, istemcinin istediği kaynağın kalıcı olarak başka bir konuma taşındığını belirtir. Bu durum, gelecekte doğrudan yeni konumu kullanması gerektiğini ifade eder."
+  },
+  { 
+      code: 302, 
+      message: "Found",
+      description: "Sunucu, istemcinin isteği geçici olarak başka bir konuma yönlendirdiğini belirtir. Ancak, istemcinin orijinal konuma geri dönebileceğini belirtir."
+  },
+  { 
+      code: 303, 
+      message: "See Other",
+      description: "Sunucu, istemcinin bir başka URI'ye GET isteği göndermesi gerektiğini belirtir."
+  },
+  { 
       code: 304,
       message: "Not Modified",
-      description:
-        "Tarayıcı önbelleği için kullanılır. Sunucu, isteğin gövdesini değiştirmemişse, istemciye aynı yanıtı tekrar kullanmasını söyler.",
-    },
-    { code: 307, message: "Temporary Redirect" },
-    { code: 308, message: "Permanent Redirect" },
-  ];
+      description: "Tarayıcı önbelleği için kullanılır. Sunucu, isteğin gövdesini değiştirmemişse, istemciye aynı yanıtı tekrar kullanmasını söyler."
+  },
+  { 
+      code: 307, 
+      message: "Temporary Redirect",
+      description: "Sunucu, istemcinin isteği geçici olarak başka bir konuma yönlendirdiğini belirtir. İstemci, orijinal metodu korumalıdır."
+  },
+  { 
+      code: 308, 
+      message: "Permanent Redirect",
+      description: "Sunucu, istemcinin isteği kalıcı olarak başka bir konuma yönlendirdiğini belirtir. İstemci, orijinal metodu korumalıdır."
+  }
+];
 
-  const ClientError = [
-    {
+
+const ClientError = [
+  {
       code: 400,
       message: "Bad Request",
-      description:
-        "Sunucu, isteği anlayamaz veya işleyemez. Genellikle istemcinin gönderdiği verilerde bir hata olduğunu gösterir.",
-    },
-    {
+      description: "Sunucu, isteği anlayamaz veya işleyemez. Genellikle istemcinin gönderdiği verilerde bir hata olduğunu gösterir."
+  },
+  {
       code: 401,
       message: "Unauthorized",
-      description:
-        " İstek, kimlik doğrulama gerektirir ancak kullanıcı doğrulanamadı veya yetkilendirme bilgileri sağlanmadı.",
-    },
-    { code: 402, message: "Payment Required" },
-    {
+      description: "İstek, kimlik doğrulama gerektirir ancak kullanıcı doğrulanamadı veya yetkilendirme bilgileri sağlanmadı."
+  },
+  { 
+      code: 402, 
+      message: "Payment Required",
+      description: "Bu durum kodu artık kullanılmamaktadır ve gelecekte kullanılmayacaktır."
+  },
+  {
       code: 403,
       message: "Forbidden",
-      description:
-        "Sunucu, isteği kabul etmeyi reddetti çünkü kullanıcının gerekli izinlere sahip olmadığını düşünüyor.",
-    },
-    {
+      description: "Sunucu, isteği kabul etmeyi reddetti çünkü kullanıcının gerekli izinlere sahip olmadığını düşünüyor."
+  },
+  {
       code: 404,
       message: "Not Found",
-      description: "İstek, geçerli ancak sunucuda istenen kaynak bulunamadı.",
-    },
-    { code: 405, message: "Method Not Allowed" },
-    { code: 406, message: "Not Acceptable" },
-    { code: 407, message: "Proxy Authentication Required" },
-    { code: 408, message: "Request Timeout" },
-    {
+      description: "İstek, geçerli ancak sunucuda istenen kaynak bulunamadı."
+  },
+  { 
+      code: 405, 
+      message: "Method Not Allowed",
+      description: "Sunucu, istemcinin belirtilen HTTP yöntemini kullanmasına izin vermiyor."
+  },
+  { 
+      code: 406, 
+      message: "Not Acceptable",
+      description: "Sunucu, istemcinin kabul edilemez bir yanıt içeriği türü istediğini belirtir."
+  },
+  { 
+      code: 407, 
+      message: "Proxy Authentication Required",
+      description: "İstemci, bir proxy sunucusuna erişirken kimlik doğrulaması gerektiğini belirtir."
+  },
+  { 
+      code: 408, 
+      message: "Request Timeout",
+      description: "Sunucu, istemcinin isteğine yanıt vermek için gereken sürede yanıt vermedi."
+  },
+  {
       code: 409,
       message: "Conflict",
-      description:
-        "İstek, kaynağın mevcut durumuyla uyumsuz olduğunda gönderilir, genellikle aynı anda yapılan güncellemelerle ilgilidir.",
-    },
-    {
+      description: "İstek, kaynağın mevcut durumuyla uyumsuz olduğunda gönderilir, genellikle aynı anda yapılan güncellemelerle ilgilidir."
+  },
+  {
       code: 410,
       message: "Gone",
-      description:
-        "İstenen kaynak artık sunucuda mevcut değil ve artık mevcut olmayacak.",
-    },
-    { code: 411, message: "Length Required" },
-    { code: 412, message: "Precondition Failed" },
-    { code: 413, message: "Payload Too Large" },
-    { code: 414, message: "URI Too Long" },
-    { code: 415, message: "Unsupported Media Type" },
-    { code: 416, message: "Range Not Satisfiable" },
-    { code: 417, message: "Expectation Failed" },
-    { code: 418, message: "I'm a Teapot" },
-    { code: 421, message: "Misdirected Request" },
-    { code: 422, message: "Unprocessable Entity" },
-    { code: 423, message: "Locked" },
-    { code: 424, message: "Failed Dependency" },
-    { code: 425, message: "Too Early" },
-    { code: 428, message: "Precondition Required" },
-    { code: 429, message: "Too Many Requests" },
-    { code: 431, message: "Request Header Fields Too Large" },
-    { code: 451, message: "Unavailable For Legal Reasons" },
-  ];
+      description: "İstenen kaynak artık sunucuda mevcut değil ve artık mevcut olmayacak."
+  },
+  { 
+      code: 411, 
+      message: "Length Required",
+      description: "Sunucu, istemcinin içeriğin uzunluğunu belirtmediğini belirtir."
+  },
+  { 
+      code: 412, 
+      message: "Precondition Failed",
+      description: "Sunucu, istemcinin isteğinin bir veya daha fazla önkoşulunu karşılayamadığını belirtir."
+  },
+  { 
+      code: 413, 
+      message: "Payload Too Large",
+      description: "Sunucu, istemcinin gönderdiği istek varlığının boyutunun sınırlarının ötesinde olduğunu belirtir."
+  },
+  { 
+      code: 414, 
+      message: "URI Too Long",
+      description: "Sunucu, istemcinin isteğindeki URI'nin çok uzun olduğunu belirtir."
+  },
+  { 
+      code: 415, 
+      message: "Unsupported Media Type",
+      description: "Sunucu, istemcinin gönderdiği medya türünü desteklemediğini belirtir."
+  },
+  { 
+      code: 416, 
+      message: "Range Not Satisfiable",
+      description: "Sunucu, istemcinin talep ettiği kaynağın bir kısmını almak için bir aralık istediğini belirtir, ancak sunucu bu aralığı sağlayamıyor."
+  },
+  { 
+      code: 417, 
+      message: "Expectation Failed",
+      description: "Sunucu, istemcinin beklediği belirli beklentileri karşılayamadığını belirtir."
+  },
+  { 
+      code: 418, 
+      message: "I'm a Teapot",
+      description: "Sunucu, 'Hyper Text Coffee Pot Control Protocol' uyarınca bir kahve makinesi olduğunu belirtir ve bir isteğin işlenmesi için uygun olmadığını belirtir."
+  },
+  { 
+      code: 421, 
+      message: "Misdirected Request",
+      description: "Sunucu, isteği yanlış bir kaynağa veya sunucuya yönlendirdiğini belirtir."
+  },
+  { 
+      code: 422, 
+      message: "Unprocessable Entity",
+      description: "Sunucu, istemcinin isteği işlemek için uygun olmadığını belirtir, genellikle doğrulama veya veri doğrulama hatalarıyla ilgilidir."
+  },
+  { 
+      code: 423, 
+      message: "Locked",
+      description: "Sunucu, istemcinin talep ettiği kaynağın geçici olarak kilitlendiğini belirtir ve daha sonra tekrar erişilebileceğini belirtir."
+  },
+  { 
+    code: 424, 
+    message: "Failed Dependency",
+    description: "Sunucu, bir veya daha fazla isteğin başarısız olduğunu ve son isteğin bu nedenle başarısız olduğunu belirtir."
+},
+{ 
+    code: 425, 
+    message: "Too Early",
+    description: "Sunucu, istemcinin isteğini henüz işleyemeyeceğini belirtir."
+},
+{ 
+    code: 428, 
+    message: "Precondition Required",
+    description: "Sunucu, istemcinin belirli önkoşulları sağlaması gerektiğini belirtir."
+},
+{ 
+    code: 429, 
+    message: "Too Many Requests",
+    description: "Sunucu, istemcinin belirli bir süre içinde çok fazla istek gönderdiğini belirtir ve istekleri sınırlar."
+},
+{ 
+    code: 431, 
+    message: "Request Header Fields Too Large",
+    description: "Sunucu, istemcinin isteğindeki başlık alanlarının boyutunun sınırlarının ötesinde olduğunu belirtir."
+},
+{ 
+    code: 451, 
+    message: "Unavailable For Legal Reasons",
+    description: "Sunucu, istemcinin belirli bir kaynağa erişimin yasal nedenlerle kısıtlandığını belirtir."
+}
+];
 
-  const ServerError = [
-    {
+const ServerError = [
+  {
       code: 500,
       message: "Internal Server Error",
-      description:
-        "Sunucu, beklenmeyen bir hatayla karşılaştığı için isteği yerine getiremedi.",
-    },
-    { code: 501, message: "Not Implemented" },
-    { code: 502, message: "Bad Gateway" },
-    { code: 503, message: "Service Unavailable" },
-    { code: 504, message: "Gateway Timeout" },
-    { code: 505, message: "HTTP Version Not Supported" },
-    { code: 506, message: "Variant Also Negotiates" },
-    { code: 507, message: "Insufficient Storage" },
-    { code: 508, message: "Loop Detected" },
-    { code: 509, message: "Bandwidth Limit Exceeded" },
-    { code: 510, message: "Not Extended" },
-    { code: 511, message: "Network Authentication Required" },
-  ];
+      description: "Sunucu, beklenmeyen bir hatayla karşılaştığı için isteği yerine getiremedi."
+  },
+  { 
+      code: 501, 
+      message: "Not Implemented",
+      description: "Sunucu, istemcinin isteğini yerine getirmek için gerekli olan işlemi gerçekleştiremiyor."
+  },
+  { 
+      code: 502, 
+      message: "Bad Gateway",
+      description: "Sunucu, bir ağ geçidinden geçerken geçersiz bir yanıt aldı."
+  },
+  { 
+      code: 503, 
+      message: "Service Unavailable",
+      description: "Sunucu, şu anda hizmet veremiyor. Bu genellikle aşırı yüklenme veya bakım nedeniyle geçici bir durum olabilir."
+  },
+  { 
+      code: 504, 
+      message: "Gateway Timeout",
+      description: "Sunucu, bir ağ geçidinden yanıt alırken zaman aşımına uğradı."
+  },
+  { 
+      code: 505, 
+      message: "HTTP Version Not Supported",
+      description: "Sunucu, istemcinin kullandığı HTTP sürümünü desteklemiyor."
+  },
+  { 
+      code: 506, 
+      message: "Variant Also Negotiates",
+      description: "Sunucu, istemcinin talep ettiği kaynağın varyantı mevcut olmayabilir."
+  },
+  { 
+      code: 507, 
+      message: "Insufficient Storage",
+      description: "Sunucu, isteği yerine getirmek için gerekli olan depolama alanının tükendiğini belirtir."
+  },
+  { 
+      code: 508, 
+      message: "Loop Detected",
+      description: "Sunucu, isteği işlemeye çalışırken bir döngü algıladı."
+  },
+  { 
+      code: 509, 
+      message: "Bandwidth Limit Exceeded",
+      description: "Bu durum kodu için resmi bir tanım bulunmamaktadır."
+  },
+  { 
+      code: 510, 
+      message: "Not Extended",
+      description: "Sunucu, istemcinin gönderdiği isteği işlemek için uzantı gerektirir."
+  },
+  { 
+      code: 511, 
+      message: "Network Authentication Required",
+      description: "Sunucu, erişmek istediği kaynağa erişmek için istemcinin bir ağ kimlik doğrulaması gerektiğini belirtir."
+  }
+];
 
   return (
     <div className="bg-gray-800 h-full">
